@@ -4,16 +4,12 @@
 
 package dap4.test;
 
-import dap4.core.data.DSPRegistry;
 import dap4.core.dmr.parser.DOM4Parser;
 import dap4.core.util.DapDump;
 import dap4.dap4lib.ChunkInputStream;
-import dap4.dap4lib.FileDSP;
 import dap4.dap4lib.RequestMode;
-import dap4.dap4lib.netcdf.NetcdfLoader;
 import dap4.servlet.DapCache;
 import dap4.servlet.Generator;
-import dap4.servlet.SynDSP;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -165,7 +161,7 @@ public class TestServlet extends DapTestCommon
     protected List<TestCase> chosentests = new ArrayList<TestCase>();
 
     /* USESPRING
-	@Autowired
+    @Autowired
 	private WebApplicationContext wac;
     */
 
@@ -178,12 +174,13 @@ public class TestServlet extends DapTestCommon
         //if(DEBUGDATA) DapController.DUMPDATA = true;
 	/*USESPRING
   	    this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
-	else */ {
+	else */
+        {
             StandaloneMockMvcBuilder mvcbuilder =
-                MockMvcBuilders.standaloneSetup(new Dap4Controller());
+                    MockMvcBuilders.standaloneSetup(new Dap4Controller());
             mvcbuilder.setValidator(new TestServlet.NullValidator());
             this.mockMvc = mvcbuilder.build();
-	}
+        }
         testSetup();
         if(prop_ascii)
             Generator.setASCII(true);
@@ -222,17 +219,15 @@ public class TestServlet extends DapTestCommon
     public void testServlet()
             throws Exception
     {
-        NetcdfLoader.setLogLevel(5);
         Nc4Iosp.setLogLevel(5);
-	try {
+        try {
             DapCache.flush();
             for(TestCase testcase : chosentests) {
                 doOneTest(testcase);
             }
-	} finally {
-            NetcdfLoader.setLogLevel(0);
+        } finally {
             Nc4Iosp.setLogLevel(0);
-	}
+        }
     }
 
     //////////////////////////////////////////////////
@@ -249,14 +244,14 @@ public class TestServlet extends DapTestCommon
         for(String extension : testcase.extensions) {
             RequestMode ext = RequestMode.modeFor(extension);
             switch (ext) {
-            case DMR:
-                dodmr(testcase);
-                break;
-            case DAP:
-                dodata(testcase);
-                break;
-            default:
-                Assert.assertTrue("Unknown extension", false);
+                case DMR:
+                    dodmr(testcase);
+                    break;
+                case DAP:
+                    dodata(testcase);
+                    break;
+                default:
+                    Assert.assertTrue("Unknown extension", false);
             }
         }
     }
