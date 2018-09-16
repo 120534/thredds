@@ -56,7 +56,7 @@ import java.util.List;
 @WebAppConfiguration("file:src/test/data")
 abstract public class DapTestCommon extends UnitTestCommon
 {
-    private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+    protected static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     //////////////////////////////////////////////////
     // Constants

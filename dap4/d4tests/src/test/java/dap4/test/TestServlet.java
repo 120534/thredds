@@ -67,8 +67,6 @@ public class TestServlet extends DapTestCommon
 {
     static final boolean USESPRING = false;
 
-    private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-
     static public boolean DEBUG = false;
     static public boolean DEBUGDATA = false;
     static public boolean PARSEDEBUG = false;
@@ -237,9 +235,8 @@ public class TestServlet extends DapTestCommon
     doOneTest(TestCase testcase)
             throws Exception
     {
-        stderr.println("Testcase: " + testcase.testinputpath);
-        stderr.println("Baseline: " + testcase.baselinepath);
-        stderr.flush();
+        logger.info("Testcase: " + testcase.testinputpath);
+        logger.info("Baseline: " + testcase.baselinepath);
         if(PARSEDEBUG) DOM4Parser.setGlobalDebugLevel(1);
         for(String extension : testcase.extensions) {
             RequestMode ext = RequestMode.modeFor(extension);
@@ -284,7 +281,7 @@ public class TestServlet extends DapTestCommon
         } else if(prop_diff) { //compare with baseline
             // Read the baseline file
             String baselinecontent = readfile(testcase.baselinepath + ".dmr");
-            stderr.println("DMR Comparison");
+            logger.info("DMR Comparison");
             Assert.assertTrue("***Fail", same(getTitle(), baselinecontent, sdmr));
         }
     }
@@ -337,7 +334,7 @@ public class TestServlet extends DapTestCommon
         if(prop_diff) {
             //compare with baseline
             // Read the baseline file
-            stderr.println("Data Comparison:");
+            logger.info("Data Comparison:");
             String baselinecontent = readfile(testcase.baselinepath + ".dap");
             Assert.assertTrue("***Fail", same(getTitle(), baselinecontent, sdata));
         }
