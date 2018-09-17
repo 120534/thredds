@@ -10,11 +10,10 @@ import dap4.dap4lib.ChunkInputStream;
 import dap4.dap4lib.RequestMode;
 import dap4.servlet.DapCache;
 import dap4.servlet.Generator;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -27,7 +26,6 @@ import ucar.nc2.jni.netcdf.Nc4Iosp;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.lang.invoke.MethodHandles;
 import java.math.BigInteger;
 import java.nio.ByteOrder;
 import java.util.ArrayList;
@@ -169,8 +167,9 @@ public class TestServlet extends DapTestCommon
     public void setup()
             throws Exception
     {
+        super.bindstd();
         //if(DEBUGDATA) DapController.DUMPDATA = true;
-	/*USESPRING
+    /*USESPRING
   	    this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
 	else */
         {
@@ -187,6 +186,13 @@ public class TestServlet extends DapTestCommon
                 canonjoin(getResourceRoot(), GENERATEDIR));
         defineAllTestcases();
         chooseTestcases();
+    }
+
+    @After
+    public void cleanup()
+            throws Exception
+    {
+        super.unbindstd();
     }
 
     //////////////////////////////////////////////////
@@ -235,8 +241,8 @@ public class TestServlet extends DapTestCommon
     doOneTest(TestCase testcase)
             throws Exception
     {
-        logger.info("Testcase: " + testcase.testinputpath);
-        logger.info("Baseline: " + testcase.baselinepath);
+        System.err.println("Testcase: " + testcase.testinputpath);
+        System.err.println("Baseline: " + testcase.baselinepath);
         if(PARSEDEBUG) DOM4Parser.setGlobalDebugLevel(1);
         for(String extension : testcase.extensions) {
             RequestMode ext = RequestMode.modeFor(extension);
@@ -281,7 +287,7 @@ public class TestServlet extends DapTestCommon
         } else if(prop_diff) { //compare with baseline
             // Read the baseline file
             String baselinecontent = readfile(testcase.baselinepath + ".dmr");
-            logger.info("DMR Comparison");
+            System.err.println("DMR Comparison");
             Assert.assertTrue("***Fail", same(getTitle(), baselinecontent, sdmr));
         }
     }
@@ -334,7 +340,7 @@ public class TestServlet extends DapTestCommon
         if(prop_diff) {
             //compare with baseline
             // Read the baseline file
-            logger.info("Data Comparison:");
+            System.err.println("Data Comparison:");
             String baselinecontent = readfile(testcase.baselinepath + ".dap");
             Assert.assertTrue("***Fail", same(getTitle(), baselinecontent, sdata));
         }

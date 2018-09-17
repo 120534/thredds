@@ -9,6 +9,7 @@ import com.sun.jna.Native;
 import com.sun.jna.NativeLong;
 import com.sun.jna.Pointer;
 import com.sun.jna.ptr.IntByReference;
+import sun.plugin.dom.exception.InvalidStateException;
 import ucar.ma2.*;
 import ucar.nc2.*;
 import ucar.nc2.constants.CDM;
@@ -190,7 +191,7 @@ public class Nc4Iosp extends AbstractIOServiceProvider implements IOServiceProvi
         oldlevel = nc4.nc_set_log_level(log_level);
         startupLog.info(String.format("NetcdfLoader: set log level: old=%d new=%d", oldlevel, log_level));
       } catch (java.lang.UnsatisfiedLinkError e) {
-        // do nothing
+        // ignore
       }
     }
     return oldlevel;

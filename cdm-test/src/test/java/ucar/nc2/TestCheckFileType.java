@@ -72,7 +72,7 @@ public class TestCheckFileType extends UnitTestCommon
             int found = NCheader.checkFileType(raf);
             String foundname = NCheader.formatName(found);
             String kindname = NCheader.formatName(kind);
-            stderr.println("Testing format: " + kindname);
+            System.err.println("Testing format: " + kindname);
             Assert.assertTrue(String.format("***Fail: expected=%s found=%s%n", kindname, foundname),
                     kind == found);
         }

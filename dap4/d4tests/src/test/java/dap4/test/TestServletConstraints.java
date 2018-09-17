@@ -13,8 +13,6 @@ import dap4.servlet.SynDSP;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -42,8 +40,6 @@ import java.util.List;
 
 public class TestServletConstraints extends DapTestCommon
 {
-    private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-
     static public boolean DEBUG = false;
     static public boolean DEBUGDATA = false;
     static public boolean PARSEDEBUG = false;
@@ -235,8 +231,8 @@ public class TestServletConstraints extends DapTestCommon
     doOneTest(TestCase testcase)
             throws Exception
     {
-        stderr.println("Testcase: " + testcase.toString());
-        stderr.println("Baseline: " + testcase.baselinepath);
+        System.err.println("Testcase: " + testcase.toString());
+        System.err.println("Baseline: " + testcase.baselinepath);
         if(CEPARSEDEBUG) CEParserImpl.setGlobalDebugLevel(1);
 
         for(String extension : testcase.extensions) {
@@ -286,7 +282,7 @@ public class TestServletConstraints extends DapTestCommon
         } else if(prop_diff) { //compare with baseline
             // Read the baseline file
             String baselinecontent = readfile(basepath);
-            stderr.println("DMR Comparison");
+            System.err.println("DMR Comparison");
             Assert.assertTrue("***Fail", same(getTitle(), baselinecontent, sdmr));
         }
     }
@@ -343,7 +339,7 @@ public class TestServletConstraints extends DapTestCommon
         if(prop_diff) {
             //compare with baseline
             // Read the baseline file
-            stderr.println("Data Comparison:");
+            System.err.println("Data Comparison:");
             String baselinecontent = readfile(testcase.baselinepath + ".dap");
             Assert.assertTrue("***Fail", same(getTitle(), baselinecontent, sdata));
         }
