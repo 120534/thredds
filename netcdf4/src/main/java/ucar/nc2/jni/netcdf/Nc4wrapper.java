@@ -29,7 +29,7 @@ import com.sun.jna.ptr.IntByReference;
 public class Nc4wrapper implements Nc4prototypes
 {
 
-    static final boolean TRACE = false;
+    static public boolean TRACE = false;
 
     static private org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(Nc4wrapper.class);
 

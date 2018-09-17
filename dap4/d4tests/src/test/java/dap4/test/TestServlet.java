@@ -169,6 +169,7 @@ public class TestServlet extends DapTestCommon
             throws Exception
     {
         super.bindstd();
+        Nc4wrapper.TRACE = false;
         //if(DEBUGDATA) DapController.DUMPDATA = true;
         /*USESPRING
           this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
