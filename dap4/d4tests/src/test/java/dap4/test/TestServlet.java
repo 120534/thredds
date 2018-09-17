@@ -23,6 +23,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import thredds.server.dap4.Dap4Controller;
 import ucar.nc2.jni.netcdf.Nc4Iosp;
+import ucar.nc2.jni.netcdf.Nc4wrapper;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -168,9 +169,10 @@ public class TestServlet extends DapTestCommon
             throws Exception
     {
         super.bindstd();
+        Nc4wrapper.TRACE = true;
         //if(DEBUGDATA) DapController.DUMPDATA = true;
     /*USESPRING
-  	    this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+          this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
 	else */
         {
             StandaloneMockMvcBuilder mvcbuilder =
@@ -193,6 +195,7 @@ public class TestServlet extends DapTestCommon
             throws Exception
     {
         super.unbindstd();
+        Nc4wrapper.TRACE = false;
     }
 
     //////////////////////////////////////////////////
