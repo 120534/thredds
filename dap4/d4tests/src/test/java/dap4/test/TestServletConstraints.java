@@ -10,6 +10,7 @@ import dap4.dap4lib.RequestMode;
 import dap4.servlet.DapCache;
 import dap4.servlet.Generator;
 import dap4.servlet.SynDSP;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -170,6 +171,7 @@ public class TestServletConstraints extends DapTestCommon
     public void setup()
             throws Exception
     {
+        super.bindstd();
         StandaloneMockMvcBuilder mvcbuilder =
                 MockMvcBuilders.standaloneSetup(new Dap4Controller());
         mvcbuilder.setValidator(new TestServlet.NullValidator());
@@ -183,6 +185,13 @@ public class TestServletConstraints extends DapTestCommon
         defineAllTestcases();
         chooseTestcases();
     }
+
+    @After
+    public void cleanup()
+    {
+        super.unbindstd();
+    }
+
 
     //////////////////////////////////////////////////
     // Define test cases

@@ -1,5 +1,6 @@
 package ucar.nc2;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -47,6 +48,7 @@ public class TestCheckFileType extends UnitTestCommon
     @Before
     public void setup()
     {
+        super.bindstd();
         // Ignore this class's tests if NetCDF-4 isn't present.
         // We're using @Before because it shows these tests as being ignored.
         // @BeforeClass shows them as *non-existent*, which is not what we want.
@@ -55,6 +57,11 @@ public class TestCheckFileType extends UnitTestCommon
         Assert.assertTrue("tds.content.root.path not defined", tdsContentRootPath != null);
     }
 
+    @After
+    public void cleanup()
+    {
+        super.unbindstd();
+    }
 
     @Parameterized.Parameter(0)
     public int kind;
