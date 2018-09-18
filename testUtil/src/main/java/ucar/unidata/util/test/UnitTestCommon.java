@@ -27,7 +27,7 @@ abstract public class UnitTestCommon
     //////////////////////////////////////////////////
     // Static Constants
 
-    static public boolean LOGSTDIO = System.getProperty("intellij") == null;
+    static public boolean LOGSTDIO = System.getProperty("intellijj") == null;
 
     static public final boolean DEBUG = false;
 
