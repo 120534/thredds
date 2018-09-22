@@ -1007,6 +1007,7 @@ public class DOM4Parser implements Dap4Parser
         String name = pull(node, "name");
         if(isempty(name))
             throw new ParseException("Mapref: Empty map name");
+
         DapVariable target;
         try {
             target = (DapVariable) this.root.findByFQN(name, DapSort.VARIABLE, DapSort.SEQUENCE, DapSort.STRUCTURE);

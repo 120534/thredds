@@ -63,9 +63,14 @@ public class HttpDSP extends D4DSP
             {"proto", "dap4"},
             {"dap4.ce", null},
     };
+
     static protected final String[][] DAP4FRAGMARKERS = new String[][]{
             {"protocol", "dap4"},
             {"dap4", null},
+    };
+
+    static protected final String[] DAP4SERVLETMARKERS = new String[]{
+            "/thredds/dap4"
     };
 
     static protected final String[] DAP4SCHEMES = {"dap4", "http", "https"};
@@ -107,30 +112,35 @@ public class HttpDSP extends D4DSP
             XURI xuri = new XURI(url);
             if(true) {
                 boolean found = false;
-                for(String scheme : DAP4SCHEMES) {
-                    if(scheme.equalsIgnoreCase(xuri.getBaseProtocol())
+                for (String scheme : DAP4SCHEMES) {
+                    if (scheme.equalsIgnoreCase(xuri.getBaseProtocol())
                             || scheme.equalsIgnoreCase(xuri.getFormatProtocol())) {
                         found = true;
                         break;
                     }
                 }
-                if(!found) return false;
+                if (!found) return false;
                 // Might still be a non-dap4 url
                 String formatproto = xuri.getFormatProtocol();
-                if(DAP4PROTO.equalsIgnoreCase(formatproto))
+                if (DAP4PROTO.equalsIgnoreCase(formatproto))
                     return true;
-                for(String[] pair : DAP4QUERYMARKERS) {
+                for (String[] pair : DAP4QUERYMARKERS) {
                     String tag = xuri.getQueryFields().get(pair[0]);
-                    if(tag != null
+                    if (tag != null
                             && (pair[1] == null
                             || pair[1].equalsIgnoreCase(tag)))
                         return true;
                 }
-                for(String[] pair : DAP4FRAGMARKERS) {
+                for (String[] pair : DAP4FRAGMARKERS) {
                     String tag = xuri.getFragFields().get(pair[0]);
-                    if(tag != null
+                    if (tag != null
                             && (pair[1] == null
                             || pair[1].equalsIgnoreCase(tag)))
+                        return true;
+                }
+                String xpath = xuri.getPath();
+                for(String servletmarker: DAP4SERVLETMARKERS) {
+                    if(xpath.indexOf(servletmarker) == 0)
                         return true;
                 }
             } else
