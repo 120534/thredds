@@ -18,6 +18,7 @@ import dap4.servlet.DapRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import thredds.core.DatasetManager;
 import thredds.core.TdsRequestedDataset;
 import ucar.nc2.NetcdfFile;
 
@@ -134,7 +135,8 @@ public class Dap4Controller extends DapController
             throws DapException
     {
         String realpath;
-        if(TdsRequestedDataset.getDatasetManager() != null) {
+        DatasetManager dm = TdsRequestedDataset.getDatasetManager();
+        if(dm != null) {
             realpath = TdsRequestedDataset.getLocationFromRequestPath(location);
         } else {
             assert TdsRequestedDataset.getDatasetManager() == null;

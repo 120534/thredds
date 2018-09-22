@@ -14,13 +14,19 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+import thredds.mock.web.MockTdsContextLoader;
+import thredds.mock.web.TdsResourceBasePath;
 import thredds.server.dap4.Dap4Controller;
 import ucar.nc2.jni.netcdf.Nc4Iosp;
 import ucar.nc2.jni.netcdf.Nc4wrapper;
@@ -54,13 +60,15 @@ I have included the necessary changes marked with the tag
 USESPRING to remind me of what needs to be done someday.
 */
 
-/* USESPRING
+/* USESPRING */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(
-        locations = {"/WEB-INF/applicationContext.xml", "/WEB-INF/spring-servlet.xml"},
-        loader = MockTdsContextLoader.class)
-*/
+        locations = {"/applicationContext.xml", "/spring-servlet.xml"}
+        ,loader = MockTdsContextLoader.class
+        )
+@TdsResourceBasePath(path="file:d:/git/thredds/dap4\\d4tests/src/main/webapp")
+/**/
 
 public class TestServlet extends DapTestCommon
 {

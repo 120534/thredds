@@ -67,11 +67,13 @@ public class MockTdsServletContext extends MockServletContext {
 		return new MockRequestDispatcher(path);
 	}
 
-  public javax.servlet.descriptor.JspConfigDescriptor getJspConfigDescriptor()
-  {
+    public javax.servlet.descriptor.JspConfigDescriptor getJspConfigDescriptor()
+    {
       throw new UnsupportedOperationException();
-  }
+    }
 
+	public String getVirtualServerName()
+	{throw new UnsupportedOperationException();}
 
 	/**
  	 * Build a full resource location for the given path,
