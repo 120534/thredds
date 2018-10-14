@@ -49,6 +49,12 @@ dependencies {
     // These are for Spock.
     testCompile libraries["groovy-all"]
     testCompile libraries["spock-core"]
+
+    // Ne intellij seems to require these, why?
+    compile libraries["slf4j-api"]
+    compile libraries["groovy-all"]
+    compile libraries["xmlunit-core"]  // For comparing catalog XML.
+    compile libraries["spock-core"]
 }
 
 // Gretty will start the webapp before this task and shut it down afterward.

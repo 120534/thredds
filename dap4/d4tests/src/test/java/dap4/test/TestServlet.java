@@ -25,11 +25,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.test.web.servlet.setup.StandaloneMockMvcBuilder;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+import thredds.mock.web.MockTdsContextLoader;
+import thredds.mock.web.TdsResourceBasePath;
 import thredds.server.dap4.Dap4Controller;
 import ucar.nc2.jni.netcdf.Nc4Iosp;
 import ucar.nc2.jni.netcdf.Nc4wrapper;
-import ucar.unidata.util.test.mock.MockTdsContextLoader;
-import ucar.unidata.util.test.mock.TdsResourceBasePath;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
